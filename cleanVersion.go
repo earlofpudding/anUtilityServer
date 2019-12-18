@@ -80,6 +80,8 @@ func main() {
 					epDesc = "Watch " + epTitle.(string) + " on animenetwork.net, the best source for watching anime for free! We offer free streaming of over 100,000 anime and cartoons and are always expanding out collection"
 				}
 
+				dubbedanimeURL := strings.Replace(epURL, "animenetwork.net/episode/", "watchdubbed.net/anime/watch/", 1)
+
 				f.Write([]byte(`
 				<url><loc>` + epURL + `</loc> 
 				<video:video>
@@ -90,6 +92,7 @@ func main() {
 					<video:requires_subscription>no</video:requires_subscription>
 					<video:category>` + animeGenres.(string) + `</video:category>
 					<video:publication_date>` + epDate + `</video:publication_date>
+					<video:player_loc>` + dubbedanimeURL + `</video:player_loc>
 					<video:live>no</video:live>
 				</video:video></url>`))
 
