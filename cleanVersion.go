@@ -29,12 +29,8 @@ func fetchJSON(url string, resp interface{}) error {
 }
 
 func cache(hName string, hKey string, data *interface{}, rClient *redis.Client) error {
-
 	encodedJSON, _ := json.Marshal(&data)
-
 	_, e := rClient.HSet(hName, hKey, encodedJSON).Result()
-
-	// _, e := redisClient.HSet(hName, hKey, encodedJSON).Result()
 	return e
 }
 
