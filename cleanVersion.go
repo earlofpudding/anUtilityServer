@@ -91,6 +91,7 @@ func main() {
 		} else {
 			urlCount = 1
 			fileCount++
+			f.Sync()
 			f.Close()
 			f, _ = os.Create("sitemap-" + strconv.Itoa(fileCount) + ".xml")
 
@@ -173,6 +174,7 @@ func main() {
 				} else {
 					urlCount = 1
 					fileCount++
+					f.Sync()
 					f.Close()
 					f, _ = os.Create("sitemap-" + strconv.Itoa(fileCount) + ".xml")
 
