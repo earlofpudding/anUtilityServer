@@ -110,45 +110,52 @@ func main() {
 
 		}
 
-		data := epRaw.([]interface{})
-		for _, v := range data {
-			//Within each episode
-			epID := v.(map[string]interface{})["id"]
-			epURL := siteURL + "/episode/" + epID.(string) + "/"
-			epP := v.(map[string]interface{})["image"]
-			epPicture := "https:" + strings.Replace(epP.(string), "animeapi.com", "animenetwork.net", 1)
-			epDateFull := v.(map[string]interface{})["date"]
-			epDate := epDateFull.(string)[0:10]
+		if epRaw != nil {
+			//if anime actuall has episodes
+			data := epRaw.([]interface{})
+			for _, v := range data {
+				//Within each episode
+				epID := v.(map[string]interface{})["id"]
+				epURL := siteURL + "/episode/" + epID.(string) + "/"
+				epP := v.(map[string]interface{})["image"]
+				epPicture := "https:" + strings.Replace(epP.(string), "animeapi.com", "animenetwork.net", 1)
+				epDateFull := v.(map[string]interface{})["date"]
+				epDate := epDateFull.(string)[0:10]
 
-			epTitle := v.(map[string]interface{})["title"]
-			if epTitle == "" {
-				epTitle1 := v.(map[string]interface{})["name"]
-				epTitle = epTitle1.(map[string]interface{})["default"]
+				epTitle := v.(map[string]interface{})["title"]
+				if epTitle == "" {
+					epTitle1 := v.(map[string]interface{})["name"]
+					epTitle = epTitle1.(map[string]interface{})["default"]
+				}
+
+				epDesc := v.(map[string]interface{})["description"]
+				if epDesc == "" || epDesc == nil {
+					epDesc = "Watch " + epTitle.(string) + " on animenetwork.net, the best source for watching anime for free! We offer free streaming of over 100,000 anime and cartoons and are always expanding out collection"
+				}
+
+				dubbedanimeURL := strings.Replace(epURL, "animenetwork.net/episode/", "watchdubbed.net/anime/watch/", 1)
+
+				if animeGenres == nil {
+					animeGenres = ""
+				}
+
+				f.Write([]byte(`
+				<url><loc>` + epURL + `</loc> 
+				<video:video>
+					<video:thumbnail_loc>` + epPicture + `</video:thumbnail_loc>
+					<video:title>` + epTitle.(string) + `</video:title>
+					<video:description>` + epDesc.(string) + `</video:description>
+					<video:platform relationship="allow">web tv</video:restriction>
+					<video:requires_subscription>no</video:requires_subscription>
+					<video:category>` + animeGenres.(string) + `</video:category>
+					<video:publication_date>` + epDate + `</video:publication_date>
+					<video:player_loc>` + dubbedanimeURL + `</video:player_loc>
+					<video:live>no</video:live>
+				</video:video></url>`))
+
+				fmt.Println(epURL)
+
 			}
-
-			epDesc := v.(map[string]interface{})["description"]
-			if epDesc == "" || epDesc == nil {
-				epDesc = "Watch " + epTitle.(string) + " on animenetwork.net, the best source for watching anime for free! We offer free streaming of over 100,000 anime and cartoons and are always expanding out collection"
-			}
-
-			dubbedanimeURL := strings.Replace(epURL, "animenetwork.net/episode/", "watchdubbed.net/anime/watch/", 1)
-
-			f.Write([]byte(`
-			<url><loc>` + epURL + `</loc> 
-			<video:video>
-				<video:thumbnail_loc>` + epPicture + `</video:thumbnail_loc>
-				<video:title>` + epTitle.(string) + `</video:title>
-				<video:description>` + epDesc.(string) + `</video:description>
-				<video:platform relationship="allow">web tv</video:restriction>
-				<video:requires_subscription>no</video:requires_subscription>
-				<video:category>` + animeGenres.(string) + `</video:category>
-				<video:publication_date>` + epDate + `</video:publication_date>
-				<video:player_loc>` + dubbedanimeURL + `</video:player_loc>
-				<video:live>no</video:live>
-			</video:video></url>`))
-
-			fmt.Println(epURL)
-
 		}
 
 	}
