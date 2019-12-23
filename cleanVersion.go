@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+	"strconv"
 	"strings"
 
 	"github.com/go-redis/redis/v7"
@@ -40,11 +41,13 @@ func pullCache(rClient *redis.Client, hName string, hKey string, output *interfa
 }
 
 func main() {
+	urlCount := 1
+	fileCount := 1
 	siteURL := "https://animenetwork.net"
 
 	//Open sitemap file for writing to
-	f, _ := os.Create("sitemap.xml")
-	defer f.Close()
+	f, _ := os.Create("sitemap-" + strconv.Itoa(fileCount) + ".xml")
+	// defer f.Close()
 
 	//Init redis
 	client := redis.NewClient(&redis.Options{
@@ -62,9 +65,10 @@ func main() {
 	}
 
 	//Opening sitemap data
+
 	f.Write([]byte(`
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"> `))
+	<?xml version="1.0" encoding="UTF-8"?>
+	<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"> `))
 
 	var raw map[string]interface{} //Set empty interface to handle the "unkown" data types
 	err := fetchJSON("https://animeapi.com/anime", &raw)
@@ -80,8 +84,20 @@ func main() {
 		animeURL := siteURL + "/anime/" + animeID.(string) + "/"
 		animeGenres := v.(map[string]interface{})["genres"]
 
-		f.Write([]byte(`
-	<url><loc>` + animeURL + "</loc></url>"))
+		if urlCount < 50000 {
+			f.Write([]byte(`
+			<url><loc>` + animeURL + "</loc></url>"))
+			urlCount++
+		} else {
+			urlCount = 1
+			fileCount++
+			f.Close()
+			f, _ = os.Create("sitemap-" + strconv.Itoa(fileCount) + ".xml")
+
+			f.Write([]byte(`
+			<url><loc>` + animeURL + "</loc></url>"))
+			urlCount++
+		}
 
 		fmt.Println(animeURL)
 
@@ -139,21 +155,45 @@ func main() {
 					animeGenres = ""
 				}
 
-				f.Write([]byte(`
-				<url><loc>` + epURL + `</loc> 
-				<video:video>
-					<video:thumbnail_loc>` + epPicture + `</video:thumbnail_loc>
-					<video:title>` + epTitle.(string) + `</video:title>
-					<video:description>` + epDesc.(string) + `</video:description>
-					<video:platform relationship="allow">web tv</video:restriction>
-					<video:requires_subscription>no</video:requires_subscription>
-					<video:category>` + animeGenres.(string) + `</video:category>
-					<video:publication_date>` + epDate + `</video:publication_date>
-					<video:player_loc>` + dubbedanimeURL + `</video:player_loc>
-					<video:live>no</video:live>
-				</video:video></url>`))
+				if urlCount < 50000 {
+					f.Write([]byte(`
+					<url><loc>` + epURL + `</loc> 
+					<video:video>
+						<video:thumbnail_loc>` + epPicture + `</video:thumbnail_loc>
+						<video:title>` + epTitle.(string) + `</video:title>
+						<video:description>` + epDesc.(string) + `</video:description>
+						<video:platform relationship="allow">web tv</video:restriction>
+						<video:requires_subscription>no</video:requires_subscription>
+						<video:category>` + animeGenres.(string) + `</video:category>
+						<video:publication_date>` + epDate + `</video:publication_date>
+						<video:player_loc>` + dubbedanimeURL + `</video:player_loc>
+						<video:live>no</video:live>
+					</video:video></url>`))
+					urlCount++
+				} else {
+					urlCount = 1
+					fileCount++
+					f.Close()
+					f, _ = os.Create("sitemap-" + strconv.Itoa(fileCount) + ".xml")
+
+					f.Write([]byte(`
+					<url><loc>` + epURL + `</loc> 
+					<video:video>
+						<video:thumbnail_loc>` + epPicture + `</video:thumbnail_loc>
+						<video:title>` + epTitle.(string) + `</video:title>
+						<video:description>` + epDesc.(string) + `</video:description>
+						<video:platform relationship="allow">web tv</video:restriction>
+						<video:requires_subscription>no</video:requires_subscription>
+						<video:category>` + animeGenres.(string) + `</video:category>
+						<video:publication_date>` + epDate + `</video:publication_date>
+						<video:player_loc>` + dubbedanimeURL + `</video:player_loc>
+						<video:live>no</video:live>
+					</video:video></url>`))
+					urlCount++
+				}
 
 				fmt.Println(epURL)
+				fmt.Println(urlCount)
 
 			}
 		}
@@ -165,5 +205,5 @@ func main() {
 </urlset>`))
 
 	f.Sync()
-
+	f.Close()
 }
