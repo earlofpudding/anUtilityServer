@@ -7,6 +7,7 @@ import (
 	"os"
 	"strconv"
 	"strings"
+	"time"
 
 	"github.com/go-redis/redis/v7"
 )
@@ -195,7 +196,6 @@ func main() {
 				}
 
 				fmt.Println(epURL)
-				fmt.Println(urlCount)
 
 			}
 		}
@@ -205,7 +205,30 @@ func main() {
 	//Close Sitemap
 	f.Write([]byte(`
 </urlset>`))
+	f.Sync()
+	f.Close()
 
+	//Make sitemap index
+	f, _ = os.Create("sitemap.xml")
+	t := time.Now()
+
+	f.Write([]byte(`
+	<?xml version="1.0" encoding="UTF-8"?>
+	<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+	<sitemap>
+	`))
+
+	for i := 0; i < fileCount; i++ {
+		f.Write([]byte(`
+		<loc>` + siteURL + `/sitemap-` + strconv.Itoa(i+1) + `.xml</loc>
+		<lastmod>` + t.Format("2019-01-25") + `</lastmod>  
+		`))
+	}
+
+	f.Write([]byte(`
+	</sitemap>
+	</sitemapindex>
+	`))
 	f.Sync()
 	f.Close()
 }
