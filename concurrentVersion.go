@@ -75,7 +75,8 @@ func fetchEpisodes(animeListChannel chan interface{}, client *redis.Client, f *o
 			for _, v := range data {
 				//Within each episode
 				epID := v.(map[string]interface{})["id"]
-				epURL := siteURL + "/episode/" + epID.(string) + "/"
+				epSlug := v.(map[string]interface{})["slug"]
+				epURL := siteURL + "/episode/" + epID.(string) + "-" + epSlug.(string) + "/"
 				epP := v.(map[string]interface{})["image"]
 				epPicture := "https:" + strings.Replace(epP.(string), "animeapi.com", "animenetwork.net", 1)
 				epDateFull := v.(map[string]interface{})["date"]
@@ -185,7 +186,8 @@ func main() {
 
 	for _, v := range data {
 		animeID := v.(map[string]interface{})["id"]
-		animeURL := siteURL + "/anime/" + animeID.(string) + "/"
+		animeSlug := v.(map[string]interface{})["slug"]
+		animeURL := siteURL + "/anime/" + animeID.(string) + "-" + animeSlug.(string) + "/"
 		animeGenres := v.(map[string]interface{})["genres"]
 
 		if animeGenres == nil {
