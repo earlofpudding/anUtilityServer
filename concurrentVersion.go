@@ -102,7 +102,7 @@ func fetchEpisodes(animeListChannel chan interface{}, client *redis.Client, f *o
 						<video:thumbnail_loc>` + epPicture + `</video:thumbnail_loc>
 						<video:title>` + epTitle.(string) + `</video:title>
 						<video:description>` + epDesc.(string) + `</video:description>
-						<video:platform relationship="allow">web tv</video:restriction>
+						<video:platform relationship="allow/">web tv</video:restriction>
 						<video:requires_subscription>no</video:requires_subscription>
 						<video:category>` + animeGenres.(string) + `</video:category>
 						<video:publication_date>` + epDate + `</video:publication_date>
@@ -123,7 +123,7 @@ func fetchEpisodes(animeListChannel chan interface{}, client *redis.Client, f *o
 						<video:thumbnail_loc>` + epPicture + `</video:thumbnail_loc>
 						<video:title>` + epTitle.(string) + `</video:title>
 						<video:description>` + epDesc.(string) + `</video:description>
-						<video:platform relationship="allow">web tv</video:restriction>
+						<video:platform relationship="allow/">web tv</video:restriction>
 						<video:requires_subscription>no</video:requires_subscription>
 						<video:category>` + animeGenres.(string) + `</video:category>
 						<video:publication_date>` + epDate + `</video:publication_date>
@@ -170,7 +170,51 @@ func main() {
 
 	f.Write([]byte(`
 	<?xml version="1.0" encoding="UTF-8"?>
-	<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"> `))
+	<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+		<url><loc>https://animenetwork.net/browse/</loc></url>
+		<url><loc>https://animenetwork.net/genre/action/</loc></url>
+		<url><loc>https://animenetwork.net/genre/action/">Action</option>
+		<url><loc>https://animenetwork.net/genre/adventure/">Adventure</option>
+		<url><loc>https://animenetwork.net/genre/cars/">Cars</option>
+		<url><loc>https://animenetwork.net/genre/comedy/">Comedy</option>
+		<url><loc>https://animenetwork.net/genre/dementia/">Dementia</option>
+		<url><loc>https://animenetwork.net/genre/demons/">Demons</option>
+		<url><loc>https://animenetwork.net/genre/drama/">Drama</option>
+		<url><loc>https://animenetwork.net/genre/ecchi/">Ecchi</option>
+		<url><loc>https://animenetwork.net/genre/fantasy/">Fantasy</option>
+		<url><loc>https://animenetwork.net/genre/game/">Game</option>
+		<url><loc>https://animenetwork.net/genre/harem/">Harem</option>
+		<url><loc>https://animenetwork.net/genre/historical/">Historical</option>
+		<url><loc>https://animenetwork.net/genre/horror/">Horror</option>
+		<url><loc>https://animenetwork.net/genre/josei/">Josei</option>
+		<url><loc>https://animenetwork.net/genre/kids/">Kids</option>
+		<url><loc>https://animenetwork.net/genre/magic/">Magic</option>
+		<url><loc>https://animenetwork.net/genre/martial arts/">Martial Arts</option>
+		<url><loc>https://animenetwork.net/genre/mecha/">Mecha</option>
+		<url><loc>https://animenetwork.net/genre/military/">Military</option>
+		<url><loc>https://animenetwork.net/genre/music/">Music</option>
+		<url><loc>https://animenetwork.net/genre/mystery/">Mystery</option>
+		<url><loc>https://animenetwork.net/genre/parody/">Parody</option>
+		<url><loc>https://animenetwork.net/genre/police/">Police</option>
+		<url><loc>https://animenetwork.net/genre/psychological/">Psychological</option>
+		<url><loc>https://animenetwork.net/genre/romance/">Romance</option>
+		<url><loc>https://animenetwork.net/genre/samurai/">Samurai</option>
+		<url><loc>https://animenetwork.net/genre/school/">School</option>
+		<url><loc>https://animenetwork.net/genre/sci-fi/">Sci-Fi</option>
+		<url><loc>https://animenetwork.net/genre/seinen/">Seinen</option>
+		<url><loc>https://animenetwork.net/genre/shoujo/">Shoujo</option>
+		<url><loc>https://animenetwork.net/genre/shoujo ai/">Shoujo Ai</option>
+		<url><loc>https://animenetwork.net/genre/shounen/">Shounen</option>
+		<url><loc>https://animenetwork.net/genre/shounen ai/">Shounen Ai</option>
+		<url><loc>https://animenetwork.net/genre/slice of life/">Slice Of Life</option>
+		<url><loc>https://animenetwork.net/genre/space/">Space</option>
+		<url><loc>https://animenetwork.net/genre/sports/">Sports</option>
+		<url><loc>https://animenetwork.net/genre/super power/">Super Power</option>
+		<url><loc>https://animenetwork.net/genre/supernatural/">Supernatural</option>
+		<url><loc>https://animenetwork.net/genre/thriller/">Thriller</option>
+		<url><loc>https://animenetwork.net/genre/vampire/">Vampire</option>
+		<url><loc>https://animenetwork.net/genre/yuri/">Yuri</option>
+	`))
 
 	var raw map[string]interface{} //Set empty interface to handle the "unkown" data types
 	err := fetchJSON("https://animeapi.com/anime", &raw)
@@ -226,7 +270,7 @@ func main() {
 
 	f.Write([]byte(`
 	<?xml version="1.0" encoding="UTF-8"?>
-	<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+	<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9/">
 	<sitemap>
 	`))
 
