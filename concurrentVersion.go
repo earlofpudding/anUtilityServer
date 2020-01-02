@@ -102,7 +102,7 @@ func fetchEpisodes(animeListChannel chan interface{}, client *redis.Client, f *o
 						<video:thumbnail_loc>` + epPicture + `</video:thumbnail_loc>
 						<video:title>` + epTitle.(string) + `</video:title>
 						<video:description>` + epDesc.(string) + `</video:description>
-						<video:platform relationship="allow/">web tv</video:restriction>
+						<video:platform relationship="allow">web tv</video:restriction>
 						<video:requires_subscription>no</video:requires_subscription>
 						<video:category>` + animeGenres.(string) + `</video:category>
 						<video:publication_date>` + epDate + `</video:publication_date>
@@ -123,7 +123,7 @@ func fetchEpisodes(animeListChannel chan interface{}, client *redis.Client, f *o
 						<video:thumbnail_loc>` + epPicture + `</video:thumbnail_loc>
 						<video:title>` + epTitle.(string) + `</video:title>
 						<video:description>` + epDesc.(string) + `</video:description>
-						<video:platform relationship="allow/">web tv</video:restriction>
+						<video:platform relationship="allow">web tv</video:restriction>
 						<video:requires_subscription>no</video:requires_subscription>
 						<video:category>` + animeGenres.(string) + `</video:category>
 						<video:publication_date>` + epDate + `</video:publication_date>
@@ -270,7 +270,7 @@ func main() {
 
 	f.Write([]byte(`
 	<?xml version="1.0" encoding="UTF-8"?>
-	<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9/">
+	<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 	<sitemap>
 	`))
 
