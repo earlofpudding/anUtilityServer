@@ -133,7 +133,7 @@ func fetchEpisodes(animeListChannel chan interface{}, client *redis.Client, f *o
 					*urlCount++
 				}
 
-				fmt.Println(epURL)
+				// fmt.Println(epURL)
 
 			}
 		}
@@ -254,7 +254,7 @@ func main() {
 			urlCount++
 		}
 
-		fmt.Println(animeURL)
+		// fmt.Println(animeURL)
 		animeListChannel <- animeID
 	}
 
