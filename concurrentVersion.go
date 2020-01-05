@@ -166,6 +166,13 @@ func main() {
 		return
 	}
 
+	//Flush current cache
+	_, flushed := client.Del("anime").Result()
+
+	if flushed != nil {
+		fmt.Println("error database couldn't be flushed.")
+	}
+
 	//Opening sitemap data
 
 	f.Write([]byte(`
