@@ -284,8 +284,6 @@ func main() {
 
 	//Make sitemap index
 	f, _ = os.Create("sitemap.xml")
-	t := time.Now()
-	y, m, d := t.Date()
 
 	f.Write([]byte(`<?xml version="1.0" encoding="UTF-8"?>
 	<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -295,7 +293,7 @@ func main() {
 	for i := 0; i < fileCount; i++ {
 		f.Write([]byte(`
 		<loc>` + siteURL + `/sitemap-` + strconv.Itoa(i+1) + `.xml</loc>
-		<lastmod>` + string(y) + "-" + string(m) + "-" + string(d) + `</lastmod>  
+		<lastmod>` + tStart.Format("2006-01-02") + `</lastmod>
 		`))
 	}
 
