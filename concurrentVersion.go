@@ -234,6 +234,18 @@ func main() {
 		animeURL := siteURL + "/anime/" + animeID.(string) + "-" + animeSlug.(string) + "/"
 		animeGenres := v.(map[string]interface{})["genres"]
 
+		//Check of cache of animeID exists
+		animeCache, _ := client.HExists(
+			"anime",
+			"anime:"+animeID.(string)).Result()
+
+		if !animeCache {
+			cache("anime",
+				"anime:"+animeID.(string),
+				&v,
+				client)
+		}
+
 		if animeGenres == nil {
 			animeGenres = ""
 		}
