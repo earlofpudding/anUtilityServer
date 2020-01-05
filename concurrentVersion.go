@@ -178,7 +178,7 @@ func main() {
 	f.Write([]byte(`<?xml version="1.0" encoding="UTF-8"?>
 	<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 		<url><loc>https://animenetwork.net/browse/</loc></url>
-		<url><loc>https://animenetwork.net/genre/action/</loc></loc></url>
+		<url><loc>https://animenetwork.net/genre/action/</loc></url>
 		<url><loc>https://animenetwork.net/genre/action/">Action</loc></url>
 		<url><loc>https://animenetwork.net/genre/adventure/">Adventure</loc></url>
 		<url><loc>https://animenetwork.net/genre/cars/">Cars</loc></url>
@@ -285,6 +285,7 @@ func main() {
 	//Make sitemap index
 	f, _ = os.Create("sitemap.xml")
 	t := time.Now()
+	y, m, d := t.Date()
 
 	f.Write([]byte(`<?xml version="1.0" encoding="UTF-8"?>
 	<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -294,7 +295,7 @@ func main() {
 	for i := 0; i < fileCount; i++ {
 		f.Write([]byte(`
 		<loc>` + siteURL + `/sitemap-` + strconv.Itoa(i+1) + `.xml</loc>
-		<lastmod>` + t.Format("2019-01-25") + `</lastmod>  
+		<lastmod>` + string(y) + "-" + string(m) + "-" + string(d) + `</lastmod>  
 		`))
 	}
 
