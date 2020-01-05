@@ -175,8 +175,7 @@ func main() {
 
 	//Opening sitemap data
 
-	f.Write([]byte(`
-	<?xml version="1.0" encoding="UTF-8"?>
+	f.Write([]byte(`<?xml version="1.0" encoding="UTF-8"?>
 	<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 		<url><loc>https://animenetwork.net/browse/</loc></url>
 		<url><loc>https://animenetwork.net/genre/action/</loc></url>
@@ -287,8 +286,7 @@ func main() {
 	f, _ = os.Create("sitemap.xml")
 	t := time.Now()
 
-	f.Write([]byte(`
-	<?xml version="1.0" encoding="UTF-8"?>
+	f.Write([]byte(`<?xml version="1.0" encoding="UTF-8"?>
 	<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 	<sitemap>
 	`))
