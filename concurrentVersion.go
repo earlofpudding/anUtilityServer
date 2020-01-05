@@ -154,49 +154,8 @@ func main() {
 
 	f.Write([]byte(`<?xml version="1.0" encoding="UTF-8"?>
 	<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+		<url><loc>https://animenetwork.net/</loc></url>
 		<url><loc>https://animenetwork.net/browse/</loc></url>
-		<url><loc>https://animenetwork.net/genre/action/</loc></url>
-		<url><loc>https://animenetwork.net/genre/action/">Action</loc></url>
-		<url><loc>https://animenetwork.net/genre/adventure/">Adventure</loc></url>
-		<url><loc>https://animenetwork.net/genre/cars/">Cars</loc></url>
-		<url><loc>https://animenetwork.net/genre/comedy/">Comedy</loc></url>
-		<url><loc>https://animenetwork.net/genre/dementia/">Dementia</loc></url>
-		<url><loc>https://animenetwork.net/genre/demons/">Demons</loc></url>
-		<url><loc>https://animenetwork.net/genre/drama/">Drama</loc></url>
-		<url><loc>https://animenetwork.net/genre/ecchi/">Ecchi</loc></url>
-		<url><loc>https://animenetwork.net/genre/fantasy/">Fantasy</loc></url>
-		<url><loc>https://animenetwork.net/genre/game/">Game</loc></url>
-		<url><loc>https://animenetwork.net/genre/harem/">Harem</loc></url>
-		<url><loc>https://animenetwork.net/genre/historical/">Historical</loc></url>
-		<url><loc>https://animenetwork.net/genre/horror/">Horror</loc></url>
-		<url><loc>https://animenetwork.net/genre/josei/">Josei</loc></url>
-		<url><loc>https://animenetwork.net/genre/kids/">Kids</loc></url>
-		<url><loc>https://animenetwork.net/genre/magic/">Magic</loc></url>
-		<url><loc>https://animenetwork.net/genre/martial arts/">Martial Arts</loc></url>
-		<url><loc>https://animenetwork.net/genre/mecha/">Mecha</loc></url>
-		<url><loc>https://animenetwork.net/genre/military/">Military</loc></url>
-		<url><loc>https://animenetwork.net/genre/music/">Music</loc></url>
-		<url><loc>https://animenetwork.net/genre/mystery/">Mystery</loc></url>
-		<url><loc>https://animenetwork.net/genre/parody/">Parody</loc></url>
-		<url><loc>https://animenetwork.net/genre/police/">Police</loc></url>
-		<url><loc>https://animenetwork.net/genre/psychological/">Psychological</loc></url>
-		<url><loc>https://animenetwork.net/genre/romance/">Romance</loc></url>
-		<url><loc>https://animenetwork.net/genre/samurai/">Samurai</loc></url>
-		<url><loc>https://animenetwork.net/genre/school/">School</loc></url>
-		<url><loc>https://animenetwork.net/genre/sci-fi/">Sci-Fi</loc></url>
-		<url><loc>https://animenetwork.net/genre/seinen/">Seinen</loc></url>
-		<url><loc>https://animenetwork.net/genre/shoujo/">Shoujo</loc></url>
-		<url><loc>https://animenetwork.net/genre/shoujo ai/">Shoujo Ai</loc></url>
-		<url><loc>https://animenetwork.net/genre/shounen/">Shounen</loc></url>
-		<url><loc>https://animenetwork.net/genre/shounen ai/">Shounen Ai</loc></url>
-		<url><loc>https://animenetwork.net/genre/slice of life/">Slice Of Life</loc></url>
-		<url><loc>https://animenetwork.net/genre/space/">Space</loc></url>
-		<url><loc>https://animenetwork.net/genre/sports/">Sports</loc></url>
-		<url><loc>https://animenetwork.net/genre/super power/">Super Power</loc></url>
-		<url><loc>https://animenetwork.net/genre/supernatural/">Supernatural</loc></url>
-		<url><loc>https://animenetwork.net/genre/thriller/">Thriller</loc></url>
-		<url><loc>https://animenetwork.net/genre/vampire/">Vampire</loc></url>
-		<url><loc>https://animenetwork.net/genre/yuri/">Yuri</loc></url>
 	`))
 
 	var raw map[string]interface{} //Set empty interface to handle the "unkown" data types
@@ -233,18 +192,22 @@ func main() {
 			animeGenres = ""
 		}
 
-		if urlCount < 50000 {
+		if urlCount < 25000 {
 			f.Write([]byte(`
 				<url><loc>` + animeURL + "</loc></url>"))
 			urlCount++
 		} else {
+
 			urlCount = 1
 			fileCount++
 			f.Sync()
+			f.Write([]byte(`
+			</urlset>`))
 			f.Close()
 			f, _ = os.Create("sitemap-" + strconv.Itoa(fileCount) + ".xml")
 
-			f.Write([]byte(`
+			f.Write([]byte(`<?xml version="1.0" encoding="UTF-8"?>
+			<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 				<url><loc>` + animeURL + "</loc></url>"))
 			urlCount++
 		}
@@ -264,18 +227,18 @@ func main() {
 
 	f.Write([]byte(`<?xml version="1.0" encoding="UTF-8"?>
 	<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-	<sitemap>
 	`))
 
 	for i := 0; i < fileCount; i++ {
 		f.Write([]byte(`
-		<loc>` + siteURL + `/static/sitemap/sitemap-` + strconv.Itoa(i+1) + `.xml</loc>
-		<lastmod>` + tStart.Format("2006-01-02") + `</lastmod>
+		<sitemap>
+			<loc>` + siteURL + `/static/sitemap/sitemap-` + strconv.Itoa(i+1) + `.xml</loc>
+			<lastmod>` + tStart.Format("2006-01-02") + `</lastmod>
+		</sitemap>
 		`))
 	}
 
 	f.Write([]byte(`
-	</sitemap>
 	</sitemapindex>
 	`))
 	f.Sync()
