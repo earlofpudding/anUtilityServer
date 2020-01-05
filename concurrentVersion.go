@@ -7,7 +7,6 @@ import (
 	"net/http"
 	"os"
 	"strconv"
-	"strings"
 	"time"
 
 	"github.com/go-redis/redis/v7"
@@ -77,10 +76,10 @@ func fetchEpisodes(animeListChannel chan interface{}, client *redis.Client, f *o
 				epID := v.(map[string]interface{})["id"]
 				epSlug := v.(map[string]interface{})["slug"]
 				epURL := siteURL + "/episode/" + epID.(string) + "-" + epSlug.(string) + "/"
-				epP := v.(map[string]interface{})["image"]
-				epPicture := "https:" + strings.Replace(epP.(string), "animeapi.com", "animenetwork.net", 1)
-				epDateFull := v.(map[string]interface{})["date"]
-				epDate := epDateFull.(string)[0:10]
+				// epP := v.(map[string]interface{})["image"]
+				// epPicture := "https:" + strings.Replace(epP.(string), "animeapi.com", "animenetwork.net", 1)
+				// epDateFull := v.(map[string]interface{})["date"]
+				// epDate := epDateFull.(string)[0:10]
 
 				epTitle := v.(map[string]interface{})["title"]
 				if epTitle == "" {
@@ -93,22 +92,11 @@ func fetchEpisodes(animeListChannel chan interface{}, client *redis.Client, f *o
 					epDesc = "Watch " + epTitle.(string) + " on animenetwork.net, the best source for watching anime for free! We offer free streaming of over 100,000 anime and cartoons and are always expanding out collection"
 				}
 
-				dubbedanimeURL := strings.Replace(epURL, "animenetwork.net/episode/", "watchdubbed.net/anime/watch/", 1)
+				// dubbedanimeURL := strings.Replace(epURL, "animenetwork.net/episode/", "watchdubbed.net/anime/watch/", 1)
 
 				if *urlCount < 50000 {
 					f.Write([]byte(`
-					<url><loc>` + epURL + `</loc> 
-					<video:video>
-						<video:thumbnail_loc>` + epPicture + `</video:thumbnail_loc>
-						<video:title>` + epTitle.(string) + `</video:title>
-						<video:description>` + epDesc.(string) + `</video:description>
-						<video:platform relationship="allow">web tv</video:restriction>
-						<video:requires_subscription>no</video:requires_subscription>
-						<video:category>` + animeGenres.(string) + `</video:category>
-						<video:publication_date>` + epDate + `</video:publication_date>
-						<video:player_loc>` + dubbedanimeURL + `</video:player_loc>
-						<video:live>no</video:live>
-					</video:video></url>`))
+					<url><loc>` + epURL + `</loc></url>`))
 					*urlCount++
 				} else {
 					*urlCount = 1
@@ -118,18 +106,7 @@ func fetchEpisodes(animeListChannel chan interface{}, client *redis.Client, f *o
 					f, _ = os.Create("sitemap-" + strconv.Itoa(*fileCount) + ".xml")
 
 					f.Write([]byte(`
-					<url><loc>` + epURL + `</loc> 
-					<video:video>
-						<video:thumbnail_loc>` + epPicture + `</video:thumbnail_loc>
-						<video:title>` + epTitle.(string) + `</video:title>
-						<video:description>` + epDesc.(string) + `</video:description>
-						<video:platform relationship="allow">web tv</video:restriction>
-						<video:requires_subscription>no</video:requires_subscription>
-						<video:category>` + animeGenres.(string) + `</video:category>
-						<video:publication_date>` + epDate + `</video:publication_date>
-						<video:player_loc>` + dubbedanimeURL + `</video:player_loc>
-						<video:live>no</video:live>
-					</video:video></url>`))
+					<url><loc>` + epURL + `</loc></url>`))
 					*urlCount++
 				}
 
@@ -292,7 +269,7 @@ func main() {
 
 	for i := 0; i < fileCount; i++ {
 		f.Write([]byte(`
-		<loc>` + siteURL + `/sitemap-` + strconv.Itoa(i+1) + `.xml</loc>
+		<loc>` + siteURL + `/static/sitemap/sitemap-` + strconv.Itoa(i+1) + `.xml</loc>
 		<lastmod>` + tStart.Format("2006-01-02") + `</lastmod>
 		`))
 	}
