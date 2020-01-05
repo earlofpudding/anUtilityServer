@@ -178,48 +178,48 @@ func main() {
 	f.Write([]byte(`<?xml version="1.0" encoding="UTF-8"?>
 	<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 		<url><loc>https://animenetwork.net/browse/</loc></url>
-		<url><loc>https://animenetwork.net/genre/action/</loc></url>
-		<url><loc>https://animenetwork.net/genre/action/">Action</option>
-		<url><loc>https://animenetwork.net/genre/adventure/">Adventure</option>
-		<url><loc>https://animenetwork.net/genre/cars/">Cars</option>
-		<url><loc>https://animenetwork.net/genre/comedy/">Comedy</option>
-		<url><loc>https://animenetwork.net/genre/dementia/">Dementia</option>
-		<url><loc>https://animenetwork.net/genre/demons/">Demons</option>
-		<url><loc>https://animenetwork.net/genre/drama/">Drama</option>
-		<url><loc>https://animenetwork.net/genre/ecchi/">Ecchi</option>
-		<url><loc>https://animenetwork.net/genre/fantasy/">Fantasy</option>
-		<url><loc>https://animenetwork.net/genre/game/">Game</option>
-		<url><loc>https://animenetwork.net/genre/harem/">Harem</option>
-		<url><loc>https://animenetwork.net/genre/historical/">Historical</option>
-		<url><loc>https://animenetwork.net/genre/horror/">Horror</option>
-		<url><loc>https://animenetwork.net/genre/josei/">Josei</option>
-		<url><loc>https://animenetwork.net/genre/kids/">Kids</option>
-		<url><loc>https://animenetwork.net/genre/magic/">Magic</option>
-		<url><loc>https://animenetwork.net/genre/martial arts/">Martial Arts</option>
-		<url><loc>https://animenetwork.net/genre/mecha/">Mecha</option>
-		<url><loc>https://animenetwork.net/genre/military/">Military</option>
-		<url><loc>https://animenetwork.net/genre/music/">Music</option>
-		<url><loc>https://animenetwork.net/genre/mystery/">Mystery</option>
-		<url><loc>https://animenetwork.net/genre/parody/">Parody</option>
-		<url><loc>https://animenetwork.net/genre/police/">Police</option>
-		<url><loc>https://animenetwork.net/genre/psychological/">Psychological</option>
-		<url><loc>https://animenetwork.net/genre/romance/">Romance</option>
-		<url><loc>https://animenetwork.net/genre/samurai/">Samurai</option>
-		<url><loc>https://animenetwork.net/genre/school/">School</option>
-		<url><loc>https://animenetwork.net/genre/sci-fi/">Sci-Fi</option>
-		<url><loc>https://animenetwork.net/genre/seinen/">Seinen</option>
-		<url><loc>https://animenetwork.net/genre/shoujo/">Shoujo</option>
-		<url><loc>https://animenetwork.net/genre/shoujo ai/">Shoujo Ai</option>
-		<url><loc>https://animenetwork.net/genre/shounen/">Shounen</option>
-		<url><loc>https://animenetwork.net/genre/shounen ai/">Shounen Ai</option>
-		<url><loc>https://animenetwork.net/genre/slice of life/">Slice Of Life</option>
-		<url><loc>https://animenetwork.net/genre/space/">Space</option>
-		<url><loc>https://animenetwork.net/genre/sports/">Sports</option>
-		<url><loc>https://animenetwork.net/genre/super power/">Super Power</option>
-		<url><loc>https://animenetwork.net/genre/supernatural/">Supernatural</option>
-		<url><loc>https://animenetwork.net/genre/thriller/">Thriller</option>
-		<url><loc>https://animenetwork.net/genre/vampire/">Vampire</option>
-		<url><loc>https://animenetwork.net/genre/yuri/">Yuri</option>
+		<url><loc>https://animenetwork.net/genre/action/</loc></loc></url>
+		<url><loc>https://animenetwork.net/genre/action/">Action</loc></url>
+		<url><loc>https://animenetwork.net/genre/adventure/">Adventure</loc></url>
+		<url><loc>https://animenetwork.net/genre/cars/">Cars</loc></url>
+		<url><loc>https://animenetwork.net/genre/comedy/">Comedy</loc></url>
+		<url><loc>https://animenetwork.net/genre/dementia/">Dementia</loc></url>
+		<url><loc>https://animenetwork.net/genre/demons/">Demons</loc></url>
+		<url><loc>https://animenetwork.net/genre/drama/">Drama</loc></url>
+		<url><loc>https://animenetwork.net/genre/ecchi/">Ecchi</loc></url>
+		<url><loc>https://animenetwork.net/genre/fantasy/">Fantasy</loc></url>
+		<url><loc>https://animenetwork.net/genre/game/">Game</loc></url>
+		<url><loc>https://animenetwork.net/genre/harem/">Harem</loc></url>
+		<url><loc>https://animenetwork.net/genre/historical/">Historical</loc></url>
+		<url><loc>https://animenetwork.net/genre/horror/">Horror</loc></url>
+		<url><loc>https://animenetwork.net/genre/josei/">Josei</loc></url>
+		<url><loc>https://animenetwork.net/genre/kids/">Kids</loc></url>
+		<url><loc>https://animenetwork.net/genre/magic/">Magic</loc></url>
+		<url><loc>https://animenetwork.net/genre/martial arts/">Martial Arts</loc></url>
+		<url><loc>https://animenetwork.net/genre/mecha/">Mecha</loc></url>
+		<url><loc>https://animenetwork.net/genre/military/">Military</loc></url>
+		<url><loc>https://animenetwork.net/genre/music/">Music</loc></url>
+		<url><loc>https://animenetwork.net/genre/mystery/">Mystery</loc></url>
+		<url><loc>https://animenetwork.net/genre/parody/">Parody</loc></url>
+		<url><loc>https://animenetwork.net/genre/police/">Police</loc></url>
+		<url><loc>https://animenetwork.net/genre/psychological/">Psychological</loc></url>
+		<url><loc>https://animenetwork.net/genre/romance/">Romance</loc></url>
+		<url><loc>https://animenetwork.net/genre/samurai/">Samurai</loc></url>
+		<url><loc>https://animenetwork.net/genre/school/">School</loc></url>
+		<url><loc>https://animenetwork.net/genre/sci-fi/">Sci-Fi</loc></url>
+		<url><loc>https://animenetwork.net/genre/seinen/">Seinen</loc></url>
+		<url><loc>https://animenetwork.net/genre/shoujo/">Shoujo</loc></url>
+		<url><loc>https://animenetwork.net/genre/shoujo ai/">Shoujo Ai</loc></url>
+		<url><loc>https://animenetwork.net/genre/shounen/">Shounen</loc></url>
+		<url><loc>https://animenetwork.net/genre/shounen ai/">Shounen Ai</loc></url>
+		<url><loc>https://animenetwork.net/genre/slice of life/">Slice Of Life</loc></url>
+		<url><loc>https://animenetwork.net/genre/space/">Space</loc></url>
+		<url><loc>https://animenetwork.net/genre/sports/">Sports</loc></url>
+		<url><loc>https://animenetwork.net/genre/super power/">Super Power</loc></url>
+		<url><loc>https://animenetwork.net/genre/supernatural/">Supernatural</loc></url>
+		<url><loc>https://animenetwork.net/genre/thriller/">Thriller</loc></url>
+		<url><loc>https://animenetwork.net/genre/vampire/">Vampire</loc></url>
+		<url><loc>https://animenetwork.net/genre/yuri/">Yuri</loc></url>
 	`))
 
 	var raw map[string]interface{} //Set empty interface to handle the "unkown" data types
