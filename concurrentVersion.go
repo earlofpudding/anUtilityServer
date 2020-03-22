@@ -169,8 +169,9 @@ func main() {
 	animeListChannel := make(chan interface{})
 	//Open up go routine to begin listening to animeListChannel and begin outputting shit right away if it recieves any data
 
+	go fetchEpisodes(animeListChannel, client, f, siteURL, &urlCount, &fileCount, "")
+
 	for _, v := range data {
-		go fetchEpisodes(animeListChannel, client, f, siteURL, &urlCount, &fileCount, "")
 		animeID := v.(map[string]interface{})["id"]
 		animeSlug := v.(map[string]interface{})["slug"]
 		animeURL := siteURL + "/anime/" + animeID.(string) + "-" + animeSlug.(string) + "/"
