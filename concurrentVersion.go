@@ -110,8 +110,7 @@ func fetchEpisodes(animeListChannel chan interface{}, client *redis.Client, f *o
 					*urlCount++
 				}
 
-				// fmt.Println(epURL)
-
+				fmt.Println(epURL)
 			}
 		}
 	}
@@ -158,6 +157,7 @@ func main() {
 		<url><loc>https://animenetwork.net/browse/</loc></url>
 	`))
 
+	//Inital Fetch of Anime List
 	var raw map[string]interface{} //Set empty interface to handle the "unkown" data types
 	err := fetchJSON("https://animeapi.com/anime", &raw)
 	if err != nil {
@@ -168,15 +168,15 @@ func main() {
 	data := raw["data"].([]interface{})
 	animeListChannel := make(chan interface{})
 	//Open up go routine to begin listening to animeListChannel and begin outputting shit right away if it recieves any data
-	go fetchEpisodes(animeListChannel, client, f, siteURL, &urlCount, &fileCount, "")
 
 	for _, v := range data {
+		go fetchEpisodes(animeListChannel, client, f, siteURL, &urlCount, &fileCount, "")
 		animeID := v.(map[string]interface{})["id"]
 		animeSlug := v.(map[string]interface{})["slug"]
 		animeURL := siteURL + "/anime/" + animeID.(string) + "-" + animeSlug.(string) + "/"
 		animeGenres := v.(map[string]interface{})["genres"]
 
-		//Check of cache of animeID exists
+		//Check of cache if animeID exists
 		animeCache, _ := client.HExists(
 			"anime",
 			"anime:"+animeID.(string)).Result()
